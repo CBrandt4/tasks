@@ -70,7 +70,13 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    const capitalized = messages.map((message: string): string =>
+        message[message.length - 1] === "!" ? message.toUpperCase() : message
+    );
+    const noQ = capitalized.filter((str) => {
+        return !(str[str.length - 1] === "?");
+    });
+    return noQ;
 };
 
 /**
@@ -107,7 +113,15 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length === 0) {
+        return "0=0";
+    } else {
+        const sum = addends.reduce(
+            (currentTotal: number, num: number) => currentTotal + num,
+            0
+        );
+        return `${sum}=${addends.join("+")}`;
+    }
 }
 
 /**
@@ -120,5 +134,26 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    const firstNegative = values.findIndex(
+        (value: number): boolean => value < 0
+    );
+
+    if (firstNegative === -1) {
+        const sum = values.reduce(
+            (currentTotal: number, num: number) => currentTotal + num,
+            0
+        );
+        return [...values, sum];
+    } else {
+        const sum = values.reduce(
+            (currentTotal: number, num: number, index: number) =>
+                index < firstNegative ? currentTotal + num : currentTotal,
+            0
+        );
+        return [
+            ...values.slice(0, firstNegative + 1),
+            sum,
+            ...values.slice(firstNegative + 1)
+        ];
+    }
 }
