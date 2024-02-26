@@ -85,16 +85,15 @@ export function toShortForm(question: Question): string {
  * ------------------------------
  * Check the unit tests for more examples of what this looks like!
  */
-export function toMarkdown(question: Question): string {
-    return "";
-}
+export function toMarkdown(question: Question): string {}
 
 /**
  * Return a new version of the given question, except the name should now be
  * `newName`.
  */
 export function renameQuestion(question: Question, newName: string): Question {
-    return question;
+    const newQ = { ...question, name: newName };
+    return newQ;
 }
 
 /**
@@ -103,7 +102,13 @@ export function renameQuestion(question: Question, newName: string): Question {
  * published; if it was published, now it should be not published.
  */
 export function publishQuestion(question: Question): Question {
-    return question;
+    let newQ = { ...question };
+    if (question.published === true) {
+        newQ = { ...question, published: false };
+    } else {
+        newQ = { ...question, published: true };
+    }
+    return newQ;
 }
 
 /**
