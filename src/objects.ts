@@ -85,7 +85,15 @@ export function toShortForm(question: Question): string {
  * ------------------------------
  * Check the unit tests for more examples of what this looks like!
  */
-export function toMarkdown(question: Question): string {}
+export function toMarkdown(question: Question): string {
+    let newJawn = question.body;
+    if (question.type === "multiple_choice_question") {
+        newJawn = `# ${question.name}\n${question.body}\n- ${question.options[0]}\n- ${question.options[1]}\n- ${question.options[2]}`;
+    } else if (question.type === "short_answer_question") {
+        newJawn = `# ${question.name}\n${question.body}`;
+    }
+    return newJawn;
+}
 
 /**
  * Return a new version of the given question, except the name should now be
