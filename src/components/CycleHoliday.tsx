@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
 export function CycleHoliday(): JSX.Element {
-    const emojis: string[] = ["🎄", "✝️", "👍", "🎂", "🦅"];
-
     const [holidayIndex, setHolidayIndex] = useState<string>("🎄");
 
     const nextA = () => {
