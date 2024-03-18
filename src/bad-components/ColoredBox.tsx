@@ -1,34 +1,33 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 
 export const COLORS = ["red", "blue", "green"];
 const DEFAULT_COLOR_INDEX = 0;
 
-interface ChangeColorProps {
+interface ColoredBoxProps {
+    setColorIndex: (colorIndex: number) => void;
     colorIndex: number;
-    setColorIndex: React.Dispatch<React.SetStateAction<number>>; //weird type linter issue
-}
-interface ChangeColorProps {
-    color: string;
 }
 
-function ChangeColor({ colorIndex, setColorIndex }: ChangeColorProps) {
-    const nextColor = () => {
-        setColorIndex((colorIndex + 1) % COLORS.length);
-    };
-
-    return <Button onClick={nextColor}>Next Color</Button>;
+function ChangeColor({
+    setColorIndex,
+    colorIndex
+}: ColoredBoxProps): JSX.Element {
+    return (
+        <Button onClick={() => setColorIndex((colorIndex + 1) % COLORS.length)}>
+            Next Color
+        </Button>
+    );
 }
 
-function ColorPreview({ color }) {
+function ColorPreview({ colorIndex }: { colorIndex: number }): JSX.Element {
     return (
         <div
             data-testid="colored-box"
             style={{
                 width: "50px",
                 height: "50px",
-                backgroundColor: color,
+                backgroundColor: COLORS[colorIndex],
                 display: "inline-block",
                 verticalAlign: "bottom",
                 marginLeft: "5px"
@@ -37,11 +36,7 @@ function ColorPreview({ color }) {
     );
 }
 
-ColorPreview.propTypes = {
-    color: PropTypes.string.isRequired
-};
-
-export function ColoredBox() {
+export function ColoredBox(): JSX.Element {
     const [colorIndex, setColorIndex] = useState<number>(DEFAULT_COLOR_INDEX);
 
     return (
@@ -50,11 +45,10 @@ export function ColoredBox() {
             <span>The current color is: {COLORS[colorIndex]}</span>
             <div>
                 <ChangeColor
-                    colorIndex={colorIndex}
                     setColorIndex={setColorIndex}
-                    color={""}
+                    colorIndex={colorIndex}
                 />
-                <ColorPreview color={COLORS[colorIndex]} />
+                <ColorPreview colorIndex={colorIndex} />
             </div>
         </div>
     );
