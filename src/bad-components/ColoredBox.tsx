@@ -5,19 +5,18 @@ import { Button } from "react-bootstrap";
 export const COLORS = ["red", "blue", "green"];
 const DEFAULT_COLOR_INDEX = 0;
 
-function ChangeColor({ colorIndex, setColorIndex }) {
+interface ChangeColorProps {
+    colorIndex: number;
+    setColorIndex: React.Dispatch<React.SetStateAction<number>>; //weird type linter issue
+}
+
+function ChangeColor({ colorIndex, setColorIndex }: ChangeColorProps) {
     const nextColor = () => {
         setColorIndex((colorIndex + 1) % COLORS.length);
     };
 
     return <Button onClick={nextColor}>Next Color</Button>;
 }
-
-ChangeColor.propTypes = {
-    //needed to fix ESLint error?
-    colorIndex: PropTypes.number.isRequired,
-    setColorIndex: PropTypes.func.isRequired
-};
 
 function ColorPreview({ color }) {
     return (
