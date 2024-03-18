@@ -9,6 +9,9 @@ interface ChangeColorProps {
     colorIndex: number;
     setColorIndex: React.Dispatch<React.SetStateAction<number>>; //weird type linter issue
 }
+interface ChangeColorProps {
+    color: string;
+}
 
 function ChangeColor({ colorIndex, setColorIndex }: ChangeColorProps) {
     const nextColor = () => {
@@ -39,7 +42,7 @@ ColorPreview.propTypes = {
 };
 
 export function ColoredBox() {
-    const [colorIndex, setColorIndex] = useState(DEFAULT_COLOR_INDEX);
+    const [colorIndex, setColorIndex] = useState<number>(DEFAULT_COLOR_INDEX);
 
     return (
         <div>
@@ -49,6 +52,7 @@ export function ColoredBox() {
                 <ChangeColor
                     colorIndex={colorIndex}
                     setColorIndex={setColorIndex}
+                    color={""}
                 />
                 <ColorPreview color={COLORS[colorIndex]} />
             </div>
