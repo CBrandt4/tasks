@@ -27,17 +27,8 @@ export function EditMode(): JSX.Element {
                 checked={mode}
                 onChange={updateMode}
             />
+            {!mode && <div></div>}
             {mode && (
-                <div>
-                    <div>
-                        {isStudent
-                            ? `${name} is a student`
-                            : `${name} is not a student`}
-                        .
-                    </div>
-                </div>
-            )}
-            {!mode && (
                 <div>
                     <Form.Group controlId="form">
                         <Form.Control
@@ -47,26 +38,19 @@ export function EditMode(): JSX.Element {
                         />
                     </Form.Group>
                     <Form.Check
-                        type="checkbox"
                         id="is-student-check"
                         label="Are you a student?"
                         checked={isStudent}
                         onChange={updateStudent}
                     />
-                    <div>
-                        {isStudent
-                            ? `${name} is a student`
-                            : `${name} is not a student`}
-                        .
-                    </div>
                 </div>
             )}
+            <div>
+                {isStudent
+                    ? `${name} is a student`
+                    : `${name} is not a student`}
+                .
+            </div>
         </div>
     );
 }
-
-/*
-You will need state to handle the component being in “edit mode”,
-the user’s name, and whether or not the user is a student.
-The state of “edit mode” should be controlled by a switch
-*/

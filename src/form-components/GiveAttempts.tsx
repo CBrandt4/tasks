@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 
 export function GiveAttempts(): JSX.Element {
     const [attempts, setAttempts] = useState<number>(3);
-    const [requested, setRequested] = useState<string>("1");
+    const [requested, setRequested] = useState<string>("0");
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const input = event.target.value.trim();
@@ -17,6 +17,7 @@ export function GiveAttempts(): JSX.Element {
 
     const handleGain = () => {
         setAttempts(attempts + parseInt(requested));
+        setRequested("0");
     };
 
     return (
